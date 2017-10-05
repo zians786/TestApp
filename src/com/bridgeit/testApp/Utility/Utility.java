@@ -3,9 +3,21 @@ package com.bridgeit.testApp.Utility;
 import java.util.Scanner;
 
 public class Utility {
+	
+	public double stopWatch(){
+		double start=System.currentTimeMillis();
+		return start;
+	}
+	
+	public double elapseTime(double start){
+		double now=System.currentTimeMillis();
+		return (now-start)/1000;
+	}
+	
 
-	public boolean checkPrime(int number) {
-		for (int i = 2; i < number / 2; i++) {
+	public boolean checkPrime(int number) 
+	{	int m=number/2;
+		for (int i = 2; i <= m; i++) {
 			if (number % i == 0) {
 				return false;
 			}
@@ -28,7 +40,26 @@ public class Utility {
 			return false;
 	}
 
+	public <E extends Comparable <E>> int binarySearch(E find, E[] array) {
+		int first=0,last=array.length-1,mid;
+		while(first<=last){
+			mid=(first+last)/2;
+			
+			if(array[mid].compareTo(find)==0){
+				return mid;
+			}
+			else if(array[mid].compareTo(find)<0){
+				first=mid+1;
+			}
+			else
+				last=mid-1;
+		}
+		
+		return -1;
+	}
 	
+	
+/*
 	public int binarySearch(int find, int[] a) {
 		int first=0,last=a.length-1,mid;
 		while(first<=last){
@@ -46,8 +77,10 @@ public class Utility {
 		
 		return -1;
 	}
+	*/
 	
-	public void insertionSort(int[] a){
+	/*
+	 public void insertionSort(int[] a){
 		for(int i=1;i<a.length;i++){
 			int j=i;
 			int element=a[i];
@@ -63,9 +96,43 @@ public class Utility {
 			System.out.println(a[i]);
 		}
 		
+	}*/
+	public <E extends Comparable<E>> void insertionSort(E[] array){
+		for(Integer i=1;i<array.length;i++){
+			Integer j=i;
+			E element=array[i];
+			while(j>0 && array[j-1].compareTo(element)>0){
+				array[j]=array[j-1];
+				j--;
+			}
+			
+			array[j]=element;
+			
+		}
+		for(E ele :array){
+			System.out.println(ele);
+		}
+		
 	}
 	
 	
+	public <E extends Comparable<E>> E[] bubbleSort(E[] a) {
+		for(int i=0;i<a.length-1;i++){
+			for(int j=0;j<a.length-1;j++)
+			{
+				if(a[j].compareTo(a[j+1])>0){
+					E temp=a[j];
+					a[j]=a[j+1];
+					a[j+1]=temp;
+				}
+			}
+		}
+
+		return a;
+	}
+
+	
+/*
 	public void bubbleSort(int[] a){
 		for(int i=0;i<a.length-1;i++){
 			for(int j=0;j<a.length-1;j++)
@@ -82,26 +149,27 @@ public class Utility {
 			System.out.println(a[i]);
 		}
 	}
-	
+*/
 	
 	public void findYourNumber(int[] a, int n){
 		Scanner scan=new Scanner(System.in); 
-		int first=0,last=a.length-1,mid=0;
+		int first=0,last=a.length-1,mid=(last+first)/2;
 		while(n!=0){
-			mid=(first+last)/2;
-			
+		
 			System.out.println("Is the Number between '"+first+"' '"+last+"' Type 'yes' for Yes , 'no' for No");
-			//String ch=scan.nextLine();
-			if("yes"==scan.nextLine()){
-				last=mid-1;
+			String ch="yes";
+			if(ch.equals(scan.nextLine())){
+				last=mid;
+				
 			}
 			else
 			{
+				
 				first=mid+1;
 			}
-			System.out.println(a[mid]);
+		//	System.out.println(a[mid]);
+			mid=(last+first)/2;
 			n--;
-			mid=(first+last)/2;
 		
 		}
 	}
