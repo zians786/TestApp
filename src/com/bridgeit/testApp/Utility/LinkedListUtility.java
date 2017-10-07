@@ -1,5 +1,7 @@
 package com.bridgeit.testApp.Utility;
 
+import java.io.*;
+
 public class LinkedListUtility<E> {
 
 	Node start;
@@ -12,14 +14,13 @@ public class LinkedListUtility<E> {
 		size = 0;
 
 	}
-	
-	public void size(){
+
+	public void size() {
 		System.out.println(size);
 	}
 
 	public <E> void displayList() {
-		
-		
+
 		if (start == null) {
 			System.out.println("List is Empty..");
 		} else if (start.getLink() == null) {
@@ -37,20 +38,25 @@ public class LinkedListUtility<E> {
 		}
 
 	}
-	
-	public String[] listToString(){
-		String[] name=new String[size];
-		Node temp=start;
-		int pos=0;
-		while(temp.getLink()!=null){
-			name[pos]=(String) temp.getData();
-			pos++;
-		}
-		name[pos]=(String) temp.getData();
-		 return name;
+
+	public void printToFile(String location) throws IOException {
+		File file = new File(location);
+		if (file.exists()) {
+			PrintWriter printWriter = new PrintWriter(file);
+			Node temp = start;
+			printWriter.print(temp.getData());
+			while (temp.getLink() != null) {
+				temp = temp.getLink();
+				printWriter.print(","+temp.getData());
+
+			}
+			printWriter.flush();
+			printWriter.close();
+
+		} else
+			System.out.println("File not found");
+
 	}
-	
-	
 
 	public <E> void insertAtEnd(E data) {
 		Node nptr = new Node(null, data);
@@ -65,54 +71,44 @@ public class LinkedListUtility<E> {
 			end = nptr;
 		}
 	}
-	
-	
-	public <E extends Comparable<E>> int findPosition(E data){
-		boolean status=false;
-		int pos=1;
-		/*if(start.getData().compareTo(data)>0){
-			return 1;	
-		}
-		else if(end.getData()==data){
-			return size;
-		}
-		else{
-			*/
-			Node temp = start;
-			
-			while (temp.getLink()!=null) {
-				if(temp.getData().equals(data))
-				{
-					status=true;
-					break;
-				}
-				temp = temp.getLink();
-				pos++;
+
+	public <E extends Comparable<E>> int findPosition(E data) {
+		boolean status = false;
+		int pos = 1;
+		/*
+		 * if(start.getData().compareTo(data)>0){ return 1; } else
+		 * if(end.getData()==data){ return size; } else{
+		 */
+		Node temp = start;
+
+		while (temp.getLink() != null) {
+			if (temp.getData().equals(data)) {
+				status = true;
+				break;
 			}
-			if(temp.getData().equals(data)){
-				status=true;
-			}
-		
-		if(status==true){
+			temp = temp.getLink();
+			pos++;
+		}
+		if (temp.getData().equals(data)) {
+			status = true;
+		}
+
+		if (status == true) {
 			return pos;
-		}
-		else
+		} else
 			return -1;
-		
+
 	}
 
-	public void deleteAtPos(int pos)
-	{
-		if (pos == 1)
-		{
+	public void deleteAtPos(int pos) {
+		if (pos == 1) {
 			start = start.getLink();
 			size--;
 			return;
 
 		}
 
-		if (pos == size)
-		{
+		if (pos == size) {
 
 			Node s = start;
 			Node t = start;
@@ -135,10 +131,8 @@ public class LinkedListUtility<E> {
 		Node ptr = start;
 		pos = pos - 1;
 
-		for (int i = 1; i < size - 1; i++)
-		{
-			if (i == pos)
-			{
+		for (int i = 1; i < size - 1; i++) {
+			if (i == pos) {
 				Node tmp = ptr.getLink();
 				tmp = tmp.getLink();
 				ptr.setLink(tmp);
@@ -152,6 +146,33 @@ public class LinkedListUtility<E> {
 
 		size--;
 
+	}
+	
+	
+	
+	public <E extends Comparable<E>> void insertInOrder(E value){
+		Node nptr=new Node(null,value);
+		size++;
+		if(value.compareTo((E) start.getData())<0){
+			nptr.setLink(start);
+			start=nptr;
+		}
+		else if(value.compareTo((E) end.getData())>0){
+			end.setLink(nptr);
+			end=nptr;
+		}
+		else{
+			Node temp=start;
+			Node pos=temp.getLink();
+			while(temp.getLink()!=null && ((E)pos.getData()).compareTo(value)<0){
+				temp=temp.getLink();
+				pos=pos.getLink();
+			}
+			temp.setLink(nptr);
+			nptr.setLink(pos);
+			
+			
+		}
 	}
 
 }

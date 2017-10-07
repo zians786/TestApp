@@ -148,13 +148,14 @@ public class Utility {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+	public static void monthlyPayment(double principalAmount,double year,double rate){
+		double payment;
+		double n=12*year;
+		double r=rate/(12*100);
+		
+		payment=(principalAmount * r)/(1-Math.pow((1+r), (-r)));
+		System.out.println("Monthly Payment is as Follow.. "+payment);
+	}
 	
 	
 	
