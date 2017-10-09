@@ -1,5 +1,7 @@
 package com.bridgeit.testApp.Utility;
 
+import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Utility {
@@ -14,6 +16,41 @@ public class Utility {
 		return (now - start) / 1000;
 	}
 
+	public <E> void generic2DArrayDisplay(E[][] element) {
+		PrintWriter writer = new PrintWriter(System.out);
+		for (int i = 0; i < element.length; i++) {
+			for (int j = 0; j < element.length; j++) {
+				writer.print(element[i][j] + " ");
+			}
+			writer.println();
+		}
+		writer.flush();
+	}
+
+	public static void permutation(String pattern,int first,int last){
+		if(first==last){
+			System.out.println(pattern);
+		}
+		else{
+			for(int i=first;i<=last;i++){
+				pattern=swap(pattern,first,i);
+				permutation(pattern,first+1,last);
+				pattern=swap(pattern,first,i);
+			}
+		}		
+	}
+	
+	public static String swap(String pattern,int first,int last){
+		char[] copy=pattern.toCharArray();
+		char temp=copy[first];
+		copy[first]=copy[last];
+		copy[last]=temp;
+		
+		
+		return String.valueOf(copy);
+	}
+	
+	
 	public static boolean checkPrime(int number) {
 		if (number == 0 || number == 1) {
 			return false;
@@ -35,6 +72,7 @@ public class Utility {
 				count++;
 			}
 		}
+
 		int j = 0;
 		int[] data = new int[count];
 		for (int i = 0; i < number.length; i++) {
@@ -45,7 +83,26 @@ public class Utility {
 		return data;
 	}
 
-	public boolean checkPalindrome(int number) {
+	public int[] palindrome(int[] number) {
+		int count = 0;
+		for (int i = 0; i < number.length; i++) {
+			if (checkPalindrome(number[i])) {
+				count++;
+			}
+
+		}
+		int j = 0;
+		int[] data = new int[count];
+		for (int i = 0; i < number.length; i++) {
+			if (checkPalindrome(number[i])) {
+
+				data[j++] = number[i];
+			}
+		}
+		return data;
+	}
+
+	public static boolean checkPalindrome(int number) {
 		int copy = number;
 		int reverse = 0;
 		int carry;
@@ -60,45 +117,19 @@ public class Utility {
 			return false;
 	}
 
-	public static int[] anagram(int[] number) {
-		int count = 0;
-		for (int i = 0; i < number.length; i++) {
-			int index = integerSort(number[i]);
+	public static boolean anagram(String string1, String string2) {
+		char a[] = string1.toCharArray();
+		char b[] = string2.toCharArray();
 
-			for (int j = 0; j < number.length; j++) {
-				if (i == j) {
-					j++;
-				} else {
-					int compare = integerSort(number[j]);
-					if (index == compare) {
-						count++;
-					}
-				}
-			}
-		}
-		int k = 0;
-		int[] anagram = new int[count];
-		for (int i = 0; i < number.length; i++) {
-			int index = integerSort(number[i]);
+		Arrays.sort(a);
+		Arrays.sort(b);
 
-			for (int j = 0; j < number.length; j++) {
-				if (i == j) {
-					j++;
-				} else {
-					int compare = integerSort(number[j]);
-					if (index == compare) {
-						anagram[k++] = number[j];
-					}
-				}
-			}
-		}
-		bubbleSort(anagram);
-		for (int a : anagram) {
-			System.out.print(" " + a);
-		}
-		anagram = removeDuplicate(anagram);
+		String str1 = String.valueOf(a);
+		String str2 = String.valueOf(b);
 
-		return anagram;
+		if (str1.equals(str2))
+			return true;
+		return false;
 	}
 
 	public static int[] removeDuplicate(int[] number) {

@@ -1,13 +1,17 @@
-package com.bridgeit.testApp.Programs;
+package com.bridgeit.testApp.DataStructure;
 
 import java.util.Scanner;
 
+import com.bridgeit.testApp.Utility.LinkedListUtility;
+import com.bridgeit.testApp.Utility.Queue;
+import com.bridgeit.testApp.Utility.StackUtility;
 import com.bridgeit.testApp.Utility.Utility;
 
-public class PalindromePrime {
+public class PrimeAnagramInQueue {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Utility util = new Utility();
+		LinkedListUtility linked = new LinkedListUtility();
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter The Range Of Prime Number from 0 to...");
 		int range = scanner.nextInt();
@@ -16,43 +20,38 @@ public class PalindromePrime {
 			values[i] = i;
 		}
 		int[] prime = util.prime(values);
-	
 		String str = "";
 		for (int i = 0; i < prime.length; i++) {
 			str = str + Integer.toString(prime[i]) + " ";
 		}
 		System.out.println(str.toString());
 		String[] strArray = str.split(" ");
-		
-		String foranagram="";
+
 		for (int i = 0; i < strArray.length; i++) {
 			for (int j = i + 1; j < strArray.length; j++) {
 				if (util.anagram(strArray[i], strArray[j])) {
 					if (strArray[i].equals(strArray[j])) {
 
 					} else {
-						System.out.print(" " + strArray[i] + " " + strArray[j]);
-						foranagram+=strArray[i]+" ";
-						foranagram+=strArray[j];
+//						System.out.print(" " + strArray[i] + " " + strArray[j]);
+						linked.insertAtEnd(Integer.parseInt(strArray[i]));
+						linked.insertAtEnd(Integer.parseInt(strArray[j]));
 					}
 				}
 			}
 		}
-		System.out.println(foranagram.toString());
-		String[] anagramString = str.split(" ");
-		int anagramArray[]=new int[anagramString.length];
-		for(int i=0;i<anagramString.length;i++){
-			anagramArray[i]=Integer.parseInt(anagramString[i]);
-		}
-		
 		System.out.println();
-		System.out.println("Palindrome After Finding prime and anagram..");
-		
-		int[] palindrome=util.palindrome(anagramArray);
-		
-		for(int x:palindrome){
-			System.out.println(x);
+		linked.displayList();
+		System.out.println();
+		int size=linked.size();
+		Queue queue=new Queue(size);
+		while(!linked.isEmpty()){
+			queue.enqueue(linked.deleteAtPos(1));
 		}
+		System.out.println("printing Anagram from Queue -->");
+		
+		queue.display();
 	}
+
 
 }

@@ -15,8 +15,8 @@ public class LinkedListUtility<E> {
 
 	}
 
-	public void size() {
-		System.out.println(size);
+	public int size() {
+		return size;
 	}
 
 	public <E> void displayList() {
@@ -56,6 +56,14 @@ public class LinkedListUtility<E> {
 		} else
 			System.out.println("File not found");
 
+	}
+	
+	public boolean isEmpty(){
+		if(start==null){
+			return true;
+		}
+		else
+			return false;
 	}
 
 	public <E> void insertAtEnd(E data) {
@@ -100,16 +108,17 @@ public class LinkedListUtility<E> {
 
 	}
 
-	public void deleteAtPos(int pos) {
+	public int deleteAtPos(int pos) {
 		if (pos == 1) {
+			int data=(int)start.getData();
 			start = start.getLink();
 			size--;
-			return;
+			return data;
 
 		}
 
-		if (pos == size) {
-
+		else if (pos == size) {
+			int data=(int)end.getData();
 			Node s = start;
 			Node t = start;
 
@@ -125,15 +134,20 @@ public class LinkedListUtility<E> {
 
 			size--;
 
-			return;
+			return data;
 		}
-
+		
+		else
+		{
+			int data=0;
 		Node ptr = start;
 		pos = pos - 1;
 
 		for (int i = 1; i < size - 1; i++) {
 			if (i == pos) {
+				
 				Node tmp = ptr.getLink();
+				data=(int)tmp.getData();
 				tmp = tmp.getLink();
 				ptr.setLink(tmp);
 				break;
@@ -145,7 +159,8 @@ public class LinkedListUtility<E> {
 		}
 
 		size--;
-
+		return data;
+		}
 	}
 	
 	
