@@ -14,7 +14,11 @@ public class Utility {
 		return (now - start) / 1000;
 	}
 
-	public boolean checkPrime(int number) {
+	public static boolean checkPrime(int number) {
+		if (number == 0 || number == 1) {
+			return false;
+		}
+
 		int m = number / 2;
 		for (int i = 2; i <= m; i++) {
 			if (number % i == 0) {
@@ -22,6 +26,23 @@ public class Utility {
 			}
 		}
 		return true;
+	}
+
+	public static int[] prime(int[] number) {
+		int count = 0;
+		for (int i = 0; i < number.length; i++) {
+			if (checkPrime(number[i])) {
+				count++;
+			}
+		}
+		int j = 0;
+		int[] data = new int[count];
+		for (int i = 0; i < number.length; i++) {
+			if (checkPrime(number[i])) {
+				data[j++] = number[i];
+			}
+		}
+		return data;
 	}
 
 	public boolean checkPalindrome(int number) {
@@ -37,6 +58,65 @@ public class Utility {
 			return true;
 		} else
 			return false;
+	}
+
+	public static int[] anagram(int[] number) {
+		int count = 0;
+		for (int i = 0; i < number.length; i++) {
+			int index = integerSort(number[i]);
+
+			for (int j = 0; j < number.length; j++) {
+				if (i == j) {
+					j++;
+				} else {
+					int compare = integerSort(number[j]);
+					if (index == compare) {
+						count++;
+					}
+				}
+			}
+		}
+		int k = 0;
+		int[] anagram = new int[count];
+		for (int i = 0; i < number.length; i++) {
+			int index = integerSort(number[i]);
+
+			for (int j = 0; j < number.length; j++) {
+				if (i == j) {
+					j++;
+				} else {
+					int compare = integerSort(number[j]);
+					if (index == compare) {
+						anagram[k++] = number[j];
+					}
+				}
+			}
+		}
+		bubbleSort(anagram);
+		for (int a : anagram) {
+			System.out.print(" " + a);
+		}
+		anagram = removeDuplicate(anagram);
+
+		return anagram;
+	}
+
+	public static int[] removeDuplicate(int[] number) {
+		int k = 1;
+		for (int i = 1; i < number.length; i++) {
+			int value = number[i];
+			if (value == number[i - 1]) {
+				i++;
+			} else {
+				number[k] = value;
+				k++;
+			}
+		}
+		int[] unique = new int[k];
+		for (int i = 0; i < unique.length; i++) {
+			unique[i] = number[i];
+		}
+		return unique;
 	}
 
 	public <E extends Comparable<E>> int binarySearch(E find, E[] array) {
@@ -75,7 +155,25 @@ public class Utility {
 	 * 
 	 * }
 	 */
-	public <E extends Comparable<E>> void insertionSort(E[] array) {
+
+	public static int integerSort(int number) {
+		int sorted = 0;
+		String value = Integer.toString(number);
+		Integer[] copy = new Integer[value.length()];
+		int i = 0;
+		while (number > 0) {
+			copy[i++] = number % 10;
+			number /= 10;
+		}
+		insertionSort(copy);
+		for (Integer d : copy) {
+			sorted = sorted * 10 + d;
+		}
+
+		return sorted;
+	}
+
+	public static <E extends Comparable<E>> E[] insertionSort(E[] array) {
 		for (Integer i = 1; i < array.length; i++) {
 			Integer j = i;
 			E element = array[i];
@@ -87,76 +185,73 @@ public class Utility {
 			array[j] = element;
 
 		}
-		for (E ele : array) {
-			System.out.println(ele);
-		}
-
+		return array;
 	}
 
-	public <E extends Comparable<E>> E[] bubbleSort(E[] a) {
+	public <E extends Comparable<E>> E[] bubbleSort(E[] array) {
+		for (int i = 0; i < array.length - 1; i++) {
+			for (int j = 0; j < array.length - 1; j++) {
+				if (array[j].compareTo(array[j + 1]) > 0) {
+					E temp = array[j];
+					array[j] = array[j + 1];
+					array[j + 1] = temp;
+				}
+			}
+		}
+
+		return array;
+	}
+
+	public static void bubbleSort(int[] a) {
 		for (int i = 0; i < a.length - 1; i++) {
 			for (int j = 0; j < a.length - 1; j++) {
-				if (a[j].compareTo(a[j + 1]) > 0) {
-					E temp = a[j];
+				if (a[j] > a[j + 1]) {
+					int temp = a[j];
 					a[j] = a[j + 1];
 					a[j + 1] = temp;
 				}
 			}
 		}
-
-		return a;
 	}
 
-	/*
-	 * public void bubbleSort(int[] a){ for(int i=0;i<a.length-1;i++){ for(int
-	 * j=0;j<a.length-1;j++) { if(a[j]>a[j+1]){ int temp=a[j]; a[j]=a[j+1];
-	 * a[j+1]=temp; } } }
-	 * 
-	 * for(int i=0;i<a.length;i++){ System.out.println(a[i]); } }
-	 */
+	public void findYourNumber(int[] a, int n) {
+		Scanner scan = new Scanner(System.in);
+		int first = 0, last = a.length - 1, mid = (last + first) / 2;
+		while (n != 0) {
 
-	public void findYourNumber(int[] a, int n){
-		Scanner scan=new Scanner(System.in); 
-		int first=0,last=a.length-1,mid=(last+first)/2;
-		while(n!=0){
-		
-			System.out.println("Is the Number between '"+first+"' '"+last+"' Type 'yes' for Yes , 'no' for No");
-			String ch="yes";
-			if(ch.equals(scan.nextLine())){
-				last=mid;
-				
+			System.out.println("Is the Number between '" + first + "' '" + last + "' Type 'yes' for Yes , 'no' for No");
+			String ch = "yes";
+			if (ch.equals(scan.nextLine())) {
+				last = mid;
+
+			} else {
+
+				first = mid + 1;
 			}
-			else
-			{
-				
-				first=mid+1;
-			}
-		//	System.out.println(a[mid]);
-			mid=(last+first)/2;
+			// System.out.println(a[mid]);
+			mid = (last + first) / 2;
 			n--;
-		
+
 		}
 	}
 
-	public int dayOfWeek(int month,int day,int year){
-		int y0=year-(14-month)/12;
-		int x=y0+(y0/4)-(y0/100)+(y0/400);
-		int m0=month+12*((14-month)/12)-2;
-		int d0=(day+x+(31*m0)/12)%7;
-		
+	public int dayOfWeek(int month, int day, int year) {
+		int y0 = year - (14 - month) / 12;
+		int x = y0 + (y0 / 4) - (y0 / 100) + (y0 / 400);
+		int m0 = month + 12 * ((14 - month) / 12) - 2;
+		int d0 = (day + x + (31 * m0) / 12) % 7;
+
 		return d0;
-		
+
 	}
-	
-	public static void monthlyPayment(double principalAmount,double year,double rate){
+
+	public static void monthlyPayment(double principalAmount, double year, double rate) {
 		double payment;
-		double n=12*year;
-		double r=rate/(12*100);
-		
-		payment=(principalAmount * r)/(1-Math.pow((1+r), (-r)));
-		System.out.println("Monthly Payment is as Follow.. "+payment);
+		double n = 12 * year;
+		double r = rate / (12 * 100);
+
+		payment = (principalAmount * r) / (1 - Math.pow((1 + r), (-r)));
+		System.out.println("Monthly Payment is as Follow.. " + payment);
 	}
-	
-	
-	
+
 }
