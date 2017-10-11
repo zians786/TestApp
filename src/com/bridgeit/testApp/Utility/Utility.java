@@ -27,30 +27,79 @@ public class Utility {
 		writer.flush();
 	}
 
-	public static void permutation(String pattern,int first,int last){
-		if(first==last){
-			System.out.println(pattern);
+	public static double sqrt(double number) {
+		double t = number;
+		double epsilon = 1e-15;
+		while (Math.abs(t - number / t) > t * epsilon) {
+			t = (number + (t * t)) / (2 * t);
 		}
-		else{
-			for(int i=first;i<=last;i++){
-				pattern=swap(pattern,first,i);
-				permutation(pattern,first+1,last);
-				pattern=swap(pattern,first,i);
-			}
-		}		
+		return t;
 	}
-	
-	public static String swap(String pattern,int first,int last){
-		char[] copy=pattern.toCharArray();
-		char temp=copy[first];
-		copy[first]=copy[last];
-		copy[last]=temp;
-		
-		
+
+	public static void permutation(String pattern, int first, int last) {
+		if (first == last) {
+			System.out.println(pattern);
+		} else {
+			for (int i = first; i <= last; i++) {
+				pattern = swap(pattern, first, i);
+				permutation(pattern, first + 1, last);
+				pattern = swap(pattern, first, i);
+			}
+		}
+	}
+
+	public static String swap(String pattern, int first, int last) {
+		char[] copy = pattern.toCharArray();
+		char temp = copy[first];
+		copy[first] = copy[last];
+		copy[last] = temp;
+
 		return String.valueOf(copy);
 	}
-	
-	
+
+	public static int binaryToDecimal(String binary) {
+		int data = Integer.parseInt(binary);
+		int number = 0, pow = 0;
+		while (data > 0) {
+			number += (data % 2) * Math.pow(2, pow);
+			pow++;
+			data = data / 10;
+		}
+		return number;
+	}
+
+	public static String decimalToBinary(int number) {
+		String value = "";
+		while (number > 0) {
+			int digit = number % 2;
+			value = digit + "" + value;
+			number = number / 2;
+		}
+		int requiredPad = 8 - value.length();
+		char[] padding = new char[requiredPad];
+		Arrays.fill(padding, '0');
+		String padString = String.valueOf(padding);
+		value = padString + value;
+
+		return value;
+
+	}
+
+	public static void primeFactors(int number) {
+		while (number % 2 == 0) {
+			System.out.print(2 + " ");
+			number /= 2;
+		}
+		for (int i = 3; i <= Math.sqrt(number); i += 2) {
+			while (number % i == 0) {
+				System.out.print(i + " ");
+				number /= i;
+			}
+		}
+		if (number > 2)
+			System.out.print("Prime Factors are "+number);
+	}
+
 	public static boolean checkPrime(int number) {
 		if (number == 0 || number == 1) {
 			return false;

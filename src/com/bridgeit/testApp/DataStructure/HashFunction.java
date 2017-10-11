@@ -27,7 +27,7 @@ public class HashFunction {
 				String[] word = data.trim().split(",");
 				int[] number=new int[word.length];
 				int array[]=new int[11];
-				Map<Integer,Integer> map=new HashMap<>();
+				Map<Integer,> map=new HashMap<>();
 				for(int i=0;i<array.length;i++){
 					int slot=number[i];
 					slot=slot/11;
