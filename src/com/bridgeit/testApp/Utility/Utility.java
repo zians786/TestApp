@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Utility {
 
-	public double stopWatch() {
+	public static double startWatch() {
 		double start = System.currentTimeMillis();
 		return start;
 	}

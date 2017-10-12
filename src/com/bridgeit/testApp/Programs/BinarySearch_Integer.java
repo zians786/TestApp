@@ -26,7 +26,7 @@ public class BinarySearch_Integer {
 		}
 		else
 		System.out.println("Found at Index " + find+" And Element is "+array[find]);
-		scan.close();
+		
 	}
 
 }
