@@ -36,7 +36,7 @@ public class Utility {
 		return t;
 	}
 
-	public static void permutation(String pattern, int first, int last) {
+	public void permutation(String pattern, int first, int last) {
 		if (first == last) {
 			System.out.println(pattern);
 		} else {
@@ -85,7 +85,7 @@ public class Utility {
 
 	}
 
-	public static void primeFactors(int number) {
+	public  void primeFactors(int number) {
 		while (number % 2 == 0) {
 			System.out.print(2 + " ");
 			number /= 2;
@@ -97,7 +97,7 @@ public class Utility {
 			}
 		}
 		if (number > 2)
-			System.out.print("Prime Factors are "+number);
+			System.out.print("Prime Factors are " + number);
 	}
 
 	public static boolean checkPrime(int number) {
@@ -114,7 +114,7 @@ public class Utility {
 		return true;
 	}
 
-	public static int[] prime(int[] number) {
+	public int[] prime(int[] number) {
 		int count = 0;
 		for (int i = 0; i < number.length; i++) {
 			if (checkPrime(number[i])) {
@@ -294,24 +294,34 @@ public class Utility {
 		}
 	}
 
-	public void findYourNumber(int[] a, int n) {
+	public void findYourNumber( int n) {
 		Scanner scan = new Scanner(System.in);
-		int first = 0, last = a.length - 1, mid = (last + first) / 2;
-		while (n != 0) {
+		System.out.println("Given Range of Number is 0 to " + n + "\nThink One Number in between this range..");
+		int first = 0, last=n;
+		String ch = "yes";
+		while ((n-1) != 0) {
 
 			System.out.println("Is the Number between '" + first + "' '" + last + "' Type 'yes' for Yes , 'no' for No");
-			String ch = "yes";
-			if (ch.equals(scan.nextLine())) {
-				last = mid;
 
+			if (ch.equals(scan.nextLine())) {
+				last = (first + last) / 2;
+				// System.out.println((first+last)/2);
 			} else {
 
-				first = mid + 1;
+				int temp = (last - first) / 2;
+				first = last + 1;
+				last = first + temp;
+				// System.out.println((first-last)/2);
 			}
-			// System.out.println(a[mid]);
-			mid = (last + first) / 2;
 			n--;
 
+		}
+		System.out.println("Is the Number between '" + first + "' '" + last + "' Type 'yes' for Yes , 'no' for No");
+
+		if (ch.equals(scan.nextLine())) {
+			System.out.println("Your Number is --> " + first);
+		} else {
+			System.out.println("Your Number is --> " + (first + 1));
 		}
 	}
 

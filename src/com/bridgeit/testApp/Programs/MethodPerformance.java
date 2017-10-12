@@ -40,6 +40,7 @@ public class MethodPerformance {
 		}
 		System.out.println();
 		System.out.println("Enter String You want to find..");
+		scan.nextLine();
 		String findString=scan.nextLine();
 		
 		double startBinaryString=util.startWatch();
@@ -84,8 +85,32 @@ public class MethodPerformance {
 
 		System.out.println("Performance time is"+bubbleStringPerformance);
 	
+		System.out.println("***** Insertion Sort *****");
+		Integer[] insertionArray={14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+		 double insertionStart=util.startWatch();
+		util.insertionSort(insertionArray);
+		double insertionIntPerformance=util.elapseTime(insertionStart);
+		for(Integer s:insertionArray){
+			System.out.print(s+" ");
+		}System.out.println();
+		System.out.println("Performance time is"+insertionIntPerformance);
 		
-	
+		
+		
+		String[] insertionString={"Hello","Bye","Friends","Good","Nice","Awesome","Excellent"};
+		for(String s:values){
+			System.out.print(s+" ");
+		}System.out.println();
+		System.out.println("After Sorting..");
+		double insertionString1=util.startWatch();
+		util.bubbleSort(insertionString);
+		double insertionStringPerformance=util.elapseTime(insertionString1);
+		for(String s:insertionString){
+			System.out.print(s+" ");
+		}
+
+		System.out.println("Performance time is"+insertionStringPerformance);
+
 	}
 
 }

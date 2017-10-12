@@ -7,7 +7,10 @@ public class InsertionSort_Integer {
 		
 		Integer[] array={5,2,6,3,4};
 		Utility util =new Utility(); 
-		util.insertionSort(array);
+		array=util.insertionSort(array);
+		for(Integer x:array ){
+			System.out.println(x);
+		}
 		
 	}
 

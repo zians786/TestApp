@@ -44,6 +44,8 @@ public class PrimeAnagram2D {
 		}
 		util.bubbleSort(anagramArray);
 		anagramArray=util.removeDuplicate(anagramArray);
+		
+		
 		int[][] prime2D = new int[10][100];
 		int i = 0, k = 0, temp = 100;
 		while (k < anagramArray.length) {

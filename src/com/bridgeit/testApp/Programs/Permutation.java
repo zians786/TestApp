@@ -17,9 +17,7 @@ public class Permutation {
 		utility.permutation(pattern,firstIndex,lastIndex);
 		
 		
-		
-		
-		
+	
 		
 	}
 

@@ -26,33 +26,40 @@ public class PrimeAnagramInStackUsingLinkedList {
 		}
 		System.out.println(str.toString());
 		String[] strArray = str.split(" ");
-
+		String anagram = "";
 		for (int i = 0; i < strArray.length; i++) {
 			for (int j = i + 1; j < strArray.length; j++) {
 				if (util.anagram(strArray[i], strArray[j])) {
 					if (strArray[i].equals(strArray[j])) {
 
 					} else {
-						System.out.print(" " + strArray[i] + " " + strArray[j]);
-						linked.insertAtEnd(Integer.parseInt(strArray[i]));
-						linked.insertAtEnd(Integer.parseInt(strArray[j]));
+						anagram += strArray[i] + " " + strArray[j] + " ";
 					}
 				}
 			}
 		}
+		String[] anagramString = anagram.split(" ");
+		int[] anagramArray = new int[anagramString.length];
+		for (int i = 0; i < anagramArray.length; i++) {
+			anagramArray[i] = Integer.parseInt(anagramString[i]);
+		}
+		util.bubbleSort(anagramArray);
+		anagramArray = util.removeDuplicate(anagramArray);
+		for (int i : anagramArray) {
+			linked.insertAtEnd(i);
+		}
 		System.out.println();
 		linked.displayList();
 		System.out.println();
-		int size=linked.size();
-		StackUtility stack=new StackUtility(size);
+		int size = linked.size();
+		StackUtility stack = new StackUtility(size);
 
-		
-		while(!linked.isEmpty()){
+		while (!linked.isEmpty()) {
 			stack.push(linked.deleteAtPos(1));
 		}
 		System.out.println("printing Anagram from Stack -->");
-		while(!stack.isStackEmpty()){
-			int data=(int)stack.pop();
+		while (!stack.isStackEmpty()) {
+			int data = (int) stack.pop();
 			System.out.println(data);
 		}
 	}
