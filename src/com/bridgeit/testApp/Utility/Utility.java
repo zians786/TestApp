@@ -294,10 +294,15 @@ public class Utility {
 		}
 	}
 
-	public void findYourNumber( int n) {
+	public void findYourNumber(int N) {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Given Range of Number is 0 to " + n + "\nThink One Number in between this range..");
-		int first = 0, last=n;
+		System.out.println("Given Range of Number is 0 to " + (N-1) + "\nThink One Number in between this range..");
+		int first = 0, last=(N-1)/2;
+		int n=0;
+		while(N!=1){
+			N=N/2;
+			n++;
+		}
 		String ch = "yes";
 		while ((n-1) != 0) {
 

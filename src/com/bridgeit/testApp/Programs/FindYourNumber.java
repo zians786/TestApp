@@ -9,13 +9,13 @@ public class FindYourNumber {
 	public static void main(String args[]) {
 	//	int n=Integer.parseInt(args[0]);
 		Scanner scan=new Scanner(System.in);
-		System.out.println("Enter the value of n");
-		int n=scan.nextInt();
+		System.out.println("Enter the value of N");
+		int N=scan.nextInt();
 		
-		//int N=(int)Math.pow(2,n);
+		
 		
 		Utility util=new Utility();
-		util.findYourNumber(n-1);
+		util.findYourNumber(N);
 		
 	}
 

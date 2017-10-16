@@ -3,6 +3,7 @@ package com.bridgeit.testApp.DataStructure;
 import java.util.Scanner;
 
 import com.bridgeit.testApp.Utility.CalenderUtility;
+import com.bridgeit.testApp.Utility.LinkedStack;
 import com.bridgeit.testApp.Utility.Queue;
 import com.bridgeit.testApp.Utility.StackUtility;
 
@@ -39,8 +40,8 @@ public class CalenderUsingStack {
 			for (int i = 1; i <= numberOfDaysInMonth; i++) {
 				dateQueue.enqueue(i);
 			}
-			StackUtility daysStack=new StackUtility(daysQueue.getSize());
-			StackUtility dateStack=new StackUtility(dateQueue.getSize());
+			LinkedStack daysStack=new LinkedStack();
+			LinkedStack dateStack=new LinkedStack();
 			
 			while(!daysQueue.isEmpty()){
 				daysStack.push(daysQueue.dequeue());
@@ -49,20 +50,32 @@ public class CalenderUsingStack {
 			while(!dateQueue.isEmpty()){
 				dateStack.push(dateQueue.dequeue());
 			}
+		
+			LinkedStack daysStack1=new LinkedStack();
+			LinkedStack dateStack1=new LinkedStack();
+			
+			while(!daysStack.isEmpty()){
+				daysStack1.push(daysStack.pop());
+			}
+			
+			
+			while(!dateStack.isEmpty()){
+				dateStack1.push(dateStack.pop());
+			}
 			
 			System.out.println("         " + utility.getMonthName(month) + " " + year);
 			System.out.println("–––––––––––––––––––––––––––––");
-			while(!daysStack.isStackEmpty()){
-				System.out.print(daysStack.pop()+"  ");
+			while(!daysStack1.isEmpty()){
+				System.out.print(daysStack1.pop()+"  ");
 			}
 			
 		
 				for(int i=0;i<startDay;i++){
-					System.out.println(dateStack.pop());
+					System.out.println(dateStack1.pop());
 				}
 				
-				while(!dateStack.isStackEmpty()){
-					int date=(Integer) dateStack.pop();
+				while(!dateStack1.isEmpty()){
+					int date=(Integer) dateStack1.pop();
 					if (date < 10)
 						System.out.print( date+"    " );
 					else

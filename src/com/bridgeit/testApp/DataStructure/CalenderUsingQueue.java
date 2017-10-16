@@ -3,6 +3,7 @@ package com.bridgeit.testApp.DataStructure;
 import java.util.Scanner;
 
 import com.bridgeit.testApp.Utility.CalenderUtility;
+import com.bridgeit.testApp.Utility.LinkedQueue;
 import com.bridgeit.testApp.Utility.Queue;
 
 public class CalenderUsingQueue {
@@ -23,35 +24,35 @@ public class CalenderUsingQueue {
 		else {
 			String day = "Sun Mon Tue Wed Thu Fri Sat";
 			String[] days = day.split(" ");
-			Queue daysQueue = new Queue(days.length);
+			LinkedQueue daysQueue = new LinkedQueue();
 			for (int i = 0; i < days.length; i++) {
-				daysQueue.enqueue(days[i]);
+				daysQueue.insert(days[i]);
 			}
 
 			int numberOfDaysInMonth = utility.getNumberOfDaysInMonth(year, month);
 			int startDay = utility.getStartDay(year, month);
 
-			Queue dateQueue = new Queue(numberOfDaysInMonth + startDay);
+			LinkedQueue dateQueue = new LinkedQueue();
 			for (int i = 0; i < startDay; i++) {
-				dateQueue.enqueue("  ");
+				dateQueue.insert("  ");
 			}
 			for (int i = 1; i <= numberOfDaysInMonth; i++) {
-				dateQueue.enqueue(i);
+				dateQueue.insert(i);
 			}
 			
 			System.out.println("         " + utility.getMonthName(month) + " " + year);
-			System.out.println("–––––––––––––––––––––––––––––");
+			System.out.println("–––––––––––––––––––––––––––––––––");
 			while(!daysQueue.isEmpty()){
-				System.out.print(daysQueue.dequeue()+"  ");
+				System.out.print(daysQueue.remove()+"  ");
 			}
 			
 		
 				for(int i=0;i<startDay;i++){
-					System.out.println(dateQueue.dequeue());
+					System.out.println(dateQueue.remove());
 				}
 				
 				while(!dateQueue.isEmpty()){
-					int date=(int)dateQueue.dequeue();
+					int date=(int)dateQueue.remove();
 					if (date < 10)
 						System.out.print( date+"    " );
 					else

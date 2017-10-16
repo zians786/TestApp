@@ -4,171 +4,153 @@ import java.util.NoSuchElementException;
 
 public class Queue<T> {
 
-    protected T[] queue ;
+	protected T[] queue;
 
-    protected int front, rear, size, len;
+	protected int front, rear, size, len;
 
- 
+	public Queue(int n)
 
-    /* Constructor */
+	{
 
-    public Queue(int n) 
+		size = n;
 
-    {
+		len = 0;
 
-        size = n;
+		queue = (T[]) new Object[size];
 
-        len = 0;
+		front = -1;
 
-        queue = (T[])new Object[size];
+		rear = -1;
 
-        front = -1;
+	}
 
-        rear = -1;
+	public boolean isEmpty()
 
-    }    
+	{
 
-    /*  Function to check if queue is empty */
+		return front == -1;
 
-    public boolean isEmpty() 
+	}
 
-    {
+	public boolean isFull()
 
-        return front == -1;
+	{
 
-    }    
+		return front == 0 && rear == size - 1;
 
-    /*  Function to check if queue is full */
+	}
 
-    public boolean isFull() 
+	public int getSize()
 
-    {
+	{
 
-        return front==0 && rear == size -1 ;
+		return len;
 
-    }    
+	}
 
-    /*  Function to get the size of the queue */
+	public T[] peek()
 
-    public int getSize()
+	{
 
-    {
+		if (isEmpty()) {
+			throw new NoSuchElementException("Underflow Exception");
+		} else
 
-        return len ;
+			return (T[]) queue[front];
 
-    }    
+	}
 
-    /*  Function to check the front element of the queue */
+	public void enqueue(T i)
 
-    public T[] peek() 
+	{
 
-    {
+		if (rear == -1)
 
-        if (isEmpty())
-        {
-           throw new NoSuchElementException("Underflow Exception");
-        }
-        else
-        	
-        return (T[]) queue[front];
+		{
 
-    }    
+			front = 0;
 
-    /*  Function to insert an element to the queue */
+			rear = 0;
 
-    public void enqueue(T i) 
+			queue[rear] = i;
 
-    {
+		}
 
-        if (rear == -1) 
+		else if (rear + 1 >= size)
 
-        {
+			throw new IndexOutOfBoundsException("Overflow Exception");
 
-            front = 0;
+		else if (rear + 1 < size)
 
-            rear = 0;
+			queue[++rear] = i;
 
-            queue[rear] = i;
+		len++;
 
-        }
+	}
 
-        else if (rear + 1 >= size)
+	public T dequeue()
 
-            throw new IndexOutOfBoundsException("Overflow Exception");
+	{
 
-        else if ( rear + 1 < size)
+		if (isEmpty())
 
-            queue[++rear] = i;    
+			throw new NoSuchElementException("Underflow Exception");
 
-        len++ ;    
+		else
 
-    }    
+		{
 
-    /*  Function to remove front element from the queue */
+			len--;
 
-    public T dequeue() 
+			T ele = queue[front];
 
-    {
+			if (front == rear)
 
-        if (isEmpty())
+			{
 
-           throw new NoSuchElementException("Underflow Exception");
+				front = -1;
 
-        else 
+				rear = -1;
 
-        {
+			}
 
-            len-- ;
+			else
 
-            T ele =  queue[front];
+				front++;
 
-            if ( front == rear) 
+			return ele;
 
-            {
+		}
 
-                front = -1;
+	}
 
-                rear = -1;
+	public void display()
 
-            }
+	{
 
-            else
+		System.out.print("\nQueue = ");
 
-                front++;                
+		if (len == 0)
 
-            return ele;
+		{
 
-        }        
+			System.out.print("Empty\n");
 
-    }
+			return;
 
-    /*  Function to display the status of the queue */
+		}
 
-    public void display()
+		for (int i = front; i <= rear; i++)
 
-    {
+			System.out.print(queue[i] + " ");
 
-        System.out.print("\nQueue = ");
+		System.out.println();
 
-        if (len == 0)
-
-        {
-
-            System.out.print("Empty\n");
-
-            return ;
-
-        }
-
-        for (int i = front; i <= rear; i++)
-
-            System.out.print(queue[i]+" ");
-
-        System.out.println();        
-
-    }
+	}
 
 }
 
- 
-	
+
+
+
+

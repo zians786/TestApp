@@ -38,7 +38,7 @@ public class PalindromePrime {
 				}
 			}
 		}
-		System.out.println(foranagram.toString());
+		
 		String[] anagramString = str.split(" ");
 		int anagramArray[]=new int[anagramString.length];
 		for(int i=0;i<anagramString.length;i++){
